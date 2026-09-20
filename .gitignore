@@ -1,0 +1,52 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  Whitelist .gitignore — everything at the repo root is ignored BY DEFAULT and
+#  re-included explicitly below.
+#
+#  This is deliberate rather than paranoid. This working directory also holds the
+#  ADManager Plus product source, its dependency jars, ~300 MB of archives and a
+#  VS Code workspace file containing a live auth token. A conventional blacklist
+#  would publish all of it the first time someone ran `git add -A`. With a
+#  whitelist, anything new at the root is invisible to git until someone opts it
+#  in on purpose.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# 1. Ignore everything at the root.
+/*
+
+# 2. Re-include only the tool's own two modules (and this file).
+!/.gitignore
+!/impact-cli/
+!/impact-web/
+
+# ── Build output ─────────────────────────────────────────────────────────────
+target/
+build/
+node_modules/
+dist/
+*.class
+*.jar
+*.war
+
+# ── Logs / runtime scratch ───────────────────────────────────────────────────
+*.log
+logs/
+temp/
+hs_err_pid*.log
+
+# ── Generated / local-only artifacts ─────────────────────────────────────────
+effective-pom
+effective-pom.xml
+*.iml
+.idea/
+.vscode/
+.DS_Store
+
+# Vite output. `npm run build` writes the compiled SPA here and Maven runs that
+# build automatically at generate-resources, so these are regenerated on every
+# package — committing them is pure churn (a 769 KB sourcemap per UI change).
+impact-cli/src/main/resources/static/
+
+# ── Contains secrets — DO NOT COMMIT ─────────────────────────────────────────
+# Holds a live Zoho OAuth client_id + client_secret in plaintext. Redact those
+# before re-including this file.
+impact-cli/docs/HowTo.md

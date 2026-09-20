@@ -1,0 +1,12 @@
+# Build artifacts
+target/
+
+# Runtime log output — keep the logs/ directory but ignore everything inside
+# except this placeholder. See impact-cli/logs/.gitkeep.
+logs/*
+!logs/.gitkeep
+
+# IDE
+.idea/
+*.iml
+.vscode/

@@ -1,0 +1,116 @@
+{
+  "WFNotificationMacro": {
+    "dbTables": ["ADSMRequests", "ADSMRequestDetails", "ADSMWorkflowStatus", "ADSMRequestStatus", "WFAssignmentDetails", "ADSMWorkflowComment", "WFActions", "CVCFolderSelectionData", "FcBulkUserSingleVals", "ADSMAuditObjProps"],
+    "keys": [
+      {"macroKey": "admp.workflow.notification.macros.requestid", "placeholder": "%RequestID%", "dbColumn": "ADSMRequests.REQUEST_ID"},
+      {"macroKey": "admp.workflow.notification.macros.subject", "placeholder": "%Subject%", "dbColumn": "ADSMRequestDetails.SUBJECT"},
+      {"macroKey": "admp.workflow.notification.macros.description", "placeholder": "%Description%", "dbColumn": "ADSMRequestDetails.DESCRIPTION"},
+      {"macroKey": "admp.workflow.notification.macros.requestor", "placeholder": "%Requestor%", "dbColumn": "AAAUSER.FULL_NAME"},
+      {"macroKey": "admp.workflow.notification.macros.requestor_displayName", "placeholder": "%RequestorDisplayName%", "dbColumn": "AAAUSER.DISPLAY_NAME"},
+      {"macroKey": "admp.workflow.notification.macros.createtime", "placeholder": "%CreatedTime%", "dbColumn": "ADSMRequests.CREATED_TIME"},
+      {"macroKey": "admp.workflow.notification.macros.workstatus", "placeholder": "%WorkflowStatus%", "dbColumn": "ADSMWorkflowStatus.WORKFLOW_STATUS_NAME"},
+      {"macroKey": "admp.workflow.notification.macros.status", "placeholder": "%Status%", "dbColumn": "ADSMRequestStatus.STATUS_NAME"},
+      {"macroKey": "admp.workflow.notification.macros.executelink", "placeholder": "%ExecuteLink%", "dbColumn": null},
+      {"macroKey": "admp.workflow.notification.macros.request_link_macro", "placeholder": "%RequestLink%", "dbColumn": null},
+      {"macroKey": "admp.workflow.notification.macros.expire.time", "placeholder": "%ExpiryTime%", "dbColumn": "ADSMRequests.EXPIRY_TIME"},
+      {"macroKey": "admp.workflow.notification.macros.reviewer", "placeholder": "%Reviewer%", "dbColumn": "WFAssignmentDetails.REVIEWER"},
+      {"macroKey": "admp.workflow.notification.macros.reviewer_displayName", "placeholder": "%ReviewerDisplayName%", "dbColumn": "AAAUSER.DISPLAY_NAME"},
+      {"macroKey": "admp.workflow.notification.macros.approver", "placeholder": "%Approver%", "dbColumn": "WFAssignmentDetails.APPROVER"},
+      {"macroKey": "admp.workflow.notification.macros.approver_displayName", "placeholder": "%ApproverDisplayName%", "dbColumn": "AAAUSER.DISPLAY_NAME"},
+      {"macroKey": "admp.workflow.notification.macros.executor", "placeholder": "%Executor%", "dbColumn": "WFAssignmentDetails.EXECUTOR"},
+      {"macroKey": "admp.workflow.notification.macros.executor_displayName", "placeholder": "%ExecutorDisplayName%", "dbColumn": "AAAUSER.DISPLAY_NAME"},
+      {"macroKey": "admp.workflow.notification.macros.comments", "placeholder": "%Comments%", "dbColumn": "ADSMWorkflowComment.COMMENT"},
+      {"macroKey": "admp.workflow.notification.macros.actioname", "placeholder": "%ActionName%", "dbColumn": "WFActions.WF_ACTION_NAME"},
+      {"macroKey": "admp.workflow.notification.macros.actiontile", "placeholder": "%ActionTitle%", "dbColumn": "WFActions.WF_ACTION_TITLE"},
+      {"macroKey": "admp.workflow.notification.macros.folder_list_macro", "placeholder": "%FolderList%", "dbColumn": "CVCFolderSelectionData.FOLDER_PATH"},
+      {"macroKey": "admp.common.attrib_disp_name.password", "placeholder": "%Password%", "dbColumn": "FcBulkUserSingleVals.PROP_VALUE"},
+      {"macroKey": "daysToExpireAccount", "placeholder": "%DaysToExpireAccount%", "dbColumn": "ADSMUserAccountDetails.ACCOUNT_EXPIRY_DATE", "custom": true}
+    ]
+  },
+  "MgmtNotificationMacro": {
+    "dbTables": ["ADSMAuditDetails", "ADSMAuditObjs", "ADSMAuditObjProps", "ADSMUserGeneralDetails", "AAAUSER", "O365Users"],
+    "keys": [
+      {"macroKey": "admp.workflow.notification.macros.actiontile", "placeholder": "%ActionTitle%", "dbColumn": "ADSMAuditDetails.ACTION_CATEGORY"},
+      {"macroKey": "admp.workflow.notification.macros.actioname", "placeholder": "%ActionName%", "dbColumn": "ADSMAuditDetails.ACTION_NAME"},
+      {"macroKey": "admp.workflow.notification.macros.modifiername", "placeholder": "%ModifierName%", "dbColumn": "ADSMAuditDetails.TECHNICIAN_NAME"},
+      {"macroKey": "admp.admin.notification_template.automation.action_time", "placeholder": "%ActionTime%", "dbColumn": "ADSMAuditDetails.AUDIT_TIME"},
+      {"macroKey": "admp.workflow.notification.macros.modifierdisplayname", "placeholder": "%ModifierDisplayName%", "dbColumn": "AAAUSER.DISPLAY_NAME"},
+      {"macroKey": "admp.workflow.notification.macros.Manager", "placeholder": "%Manager%", "dbColumn": "ADSMUserGeneralDetails.MANAGER_DN"},
+      {"macroKey": "admp.admin.notificationTemplate.mail_recipient.users_manager_macro", "placeholder": "%UsersManagerEmail%", "dbColumn": "O365Users.MANAGER_EMAIL"},
+      {"macroKey": "admp.admin.notificationTemplate.message_content.macro.mgmt_status_macro", "placeholder": "%Status%", "dbColumn": "ADSMAuditObjs.STATUS"},
+      {"macroKey": "admp.common.attrib_disp_name.password", "placeholder": "%Password%", "dbColumn": "ADSMAuditObjProps.PROP_VALUE"},
+      {"macroKey": "client.computermanagement.domainName", "placeholder": "%Domain%", "dbColumn": "ADSMAuditObjs.OBJECT_DOMAIN"},
+      {"macroKey": "jsp.login.user_name", "placeholder": "%Username%", "dbColumn": "ADSMAuditObjs.OBJECT_NAME"},
+      {"macroKey": "ouName", "placeholder": "%OU%", "dbColumn": "ADSMUserGeneralDetails.OU_DN_NAME"}
+    ]
+  },
+  "AutomationNotificationMacro": {
+    "dbTables": ["ADSMAUTOMATION", "AAAUSER"],
+    "keys": [
+      {"macroKey": "admp.admin.notification_template.automation.automation_name_macro", "placeholder": "%AutomationName%", "dbColumn": "ADSMAUTOMATION.AUTOMATION_NAME"},
+      {"macroKey": "admp.workflow.notification.macros.createtime", "placeholder": "%CreatedTime%", "dbColumn": "ADSMAUTOMATION.MODIFIED_TIME"},
+      {"macroKey": "admp.workflow.notification.macros.subject", "placeholder": "%Subject%", "dbColumn": "ADSMAUTOMATION.SUBJECT"},
+      {"macroKey": "admp.workflow.notification.macros.description", "placeholder": "%Description%", "dbColumn": "ADSMAUTOMATION.DESCRIPTION"},
+      {"macroKey": "admp.workflow.notification.macros.modifiername", "placeholder": "%ModifierName%", "dbColumn": "AAAUSER.FULL_NAME"},
+      {"macroKey": "admp.workflow.notification.macros.actioname", "placeholder": "%ActionName%", "dbColumn": null},
+      {"macroKey": "client.computermanagement.domainName", "placeholder": "%Domain%", "dbColumn": null},
+      {"macroKey": "admp.admin.notification_template.automation.failure_status_macro", "placeholder": "%ErrorMessage%", "dbColumn": null}
+    ]
+  },
+  "SendNotificationTaskMacro": {
+    "dbTables": ["ADSMUserGeneralDetails", "AAAUSER"],
+    "keys": [
+      {"macroKey": "admp.workflow.notification.macros.actiontile", "placeholder": "%ActionTitle%", "dbColumn": null},
+      {"macroKey": "admp.workflow.notification.macros.actioname", "placeholder": "%ActionName%", "dbColumn": null},
+      {"macroKey": "admp.workflow.notification.macros.modifiername", "placeholder": "%ModifierName%", "dbColumn": "AAAUSER.FULL_NAME"},
+      {"macroKey": "admp.admin.notification_template.automation.action_time", "placeholder": "%ActionTime%", "dbColumn": null},
+      {"macroKey": "admp.workflow.notification.macros.Manager", "placeholder": "%Manager%", "dbColumn": "ADSMUserGeneralDetails.MANAGER_DN"},
+      {"macroKey": "client.computermanagement.domainName", "placeholder": "%Domain%", "dbColumn": null}
+    ]
+  },
+  "ScheduleReportNotificationMacro": {
+    "dbTables": ["ADSMSchedules"],
+    "keys": [
+      {"macroKey": "client.computermanagement.domainName", "placeholder": "%Domain%", "dbColumn": null},
+      {"macroKey": "admp.reports.schedule_reports.scheduler.scheduler_name_macro", "placeholder": "%SchedulerName%", "dbColumn": null},
+      {"macroKey": "admp.schedule_report.notification.macros.schedule_owner_macro", "placeholder": "%ScheduleOwner%", "dbColumn": null},
+      {"macroKey": "admp.reports.schedule_reports.schedule_shared_technicians_macro", "placeholder": "%SharedTechnicians%", "dbColumn": null},
+      {"macroKey": "admp.workflow.notification.macros.executor", "placeholder": "%Executor%", "dbColumn": null},
+      {"macroKey": "admp.reports_export.pageheader.generated_at_macro", "placeholder": "%GeneratedAt%", "dbColumn": null}
+    ]
+  },
+  "SingleNotifyMacro": {
+    "dbTables": ["ADSMAuditObjs", "ADSMAuditObjProps", "ADSMUserGeneralDetails", "O365Users", "CVCFolderSelectionData"],
+    "keys": [
+      {"macroKey": "admp.workflow.notification.macros.Manager", "placeholder": "%Manager%", "dbColumn": "ADSMUserGeneralDetails.MANAGER_DN"},
+      {"macroKey": "admp.workflow.notification.macros.folder_list_macro", "placeholder": "%FolderList%", "dbColumn": "CVCFolderSelectionData.FOLDER_PATH"},
+      {"macroKey": "jsp.login.user_name", "placeholder": "%Username%", "dbColumn": "ADSMAuditObjs.OBJECT_NAME"},
+      {"macroKey": "email", "placeholder": "%Email%", "dbColumn": "ADSMUserGeneralDetails.EMAIL_ADDRESS"},
+      {"macroKey": "mobile", "placeholder": "%Mobile%", "dbColumn": "ADSMUserGeneralDetails.MOBILE"}
+    ]
+  },
+  "_statusWriterTable": {
+    "_doc": "Maps sibling method calls / DB writes to the macro keys they indirectly affect (§8c2 Condition 4).",
+    "entries": [
+      {"calledMethod": "modifyRequestWorkflow", "affectsKeys": ["admp.workflow.notification.macros.workstatus", "admp.workflow.notification.macros.status"]},
+      {"calledMethod": "modifyRequestStatus", "affectsKeys": ["admp.workflow.notification.macros.status"]},
+      {"calledMethod": "updateRequestDetails", "affectsKeys": ["admp.workflow.notification.macros.subject", "admp.workflow.notification.macros.description"]},
+      {"calledMethod": "addWorkflowComment", "affectsKeys": ["admp.workflow.notification.macros.comments"]},
+      {"calledMethod": "assignWorkflowStage", "affectsKeys": ["admp.workflow.notification.macros.reviewer", "admp.workflow.notification.macros.approver", "admp.workflow.notification.macros.executor"]},
+      {"calledMethod": "getExpireTimeDetails", "affectsKeys": ["admp.workflow.notification.macros.expire.time"]},
+      {"calledMethod": "addAuditDetails", "affectsKeys": ["admp.workflow.notification.macros.actiontile", "admp.workflow.notification.macros.actioname", "admp.workflow.notification.macros.modifiername"]},
+      {"calledMethod": "insertAuditDetails", "affectsKeys": ["admp.workflow.notification.macros.actiontile", "admp.workflow.notification.macros.actioname", "admp.workflow.notification.macros.modifiername"]}
+    ],
+    "tableWriteEntries": [
+      {"tableName": "ADSMWorkFlowComment", "affectsKeys": ["admp.workflow.notification.macros.comments"]},
+      {"tableName": "ADSMWorkFlowApprovalDetails", "affectsKeys": ["admp.workflow.notification.macros.modifiername", "admp.workflow.notification.macros.reviewer", "admp.workflow.notification.macros.approver", "admp.workflow.notification.macros.executor"]},
+      {"tableName": "ADSMRequestSLA", "affectsKeys": ["admp.workflow.notification.macros.expire.time"]},
+      {"tableName": "ADSMAuditDetails", "affectsKeys": ["admp.workflow.notification.macros.actiontile", "admp.workflow.notification.macros.actioname", "admp.workflow.notification.macros.modifiername"]},
+      {"tableName": "ADSMAuditObjs", "affectsKeys": ["jsp.login.user_name", "client.computermanagement.domainName", "admp.admin.notificationTemplate.message_content.macro.mgmt_status_macro"]},
+      {"tableName": "ADSMRequestDetails", "affectsKeys": ["admp.workflow.notification.macros.subject", "admp.workflow.notification.macros.description"]},
+      {"tableName": "ADSMWorkflowStatus", "affectsKeys": ["admp.workflow.notification.macros.workstatus"]},
+      {"tableName": "ADSMRequestStatus", "affectsKeys": ["admp.workflow.notification.macros.status"]},
+      {"tableName": "ADSMAUTOMATION", "affectsKeys": ["admp.workflow.notification.macros.subject", "admp.workflow.notification.macros.description", "admp.workflow.notification.macros.createtime"]}
+    ]
+  }
+}

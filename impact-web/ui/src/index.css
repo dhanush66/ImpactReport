@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Minor opinionated defaults so the app looks reasonable before page-specific styling. */
+body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+code, pre { font-family: ui-monospace, "JetBrains Mono", Consolas, "Liberation Mono", monospace; }
