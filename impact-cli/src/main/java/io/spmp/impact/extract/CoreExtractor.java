@@ -217,6 +217,16 @@ public class CoreExtractor {
         audit("INDEX", "classes=" + index.classCount() + " methods=" + index.methodTotalCount()
             + " fields=" + index.fieldCount() + " files=" + index.fileCount() + " freezeMs=" + freezeMs);
 
+        // Hand the frozen index to resolvers that resolve FQNs in afterAll (ReflectionResolver).
+        // Only valid now: during Pass 1 the index is still being written by the worker pool.
+        for (BoundaryResolver r : resolvers) {
+            try { r.indexFrozen(index); }
+            catch (Throwable t) {
+                System.err.println("[resolver-indexFrozen-error] " + r.getClass().getSimpleName()
+                    + " : " + t.getMessage());
+            }
+        }
+
         // ── Pass 2: resolve call sites ────────────────────────────────
         long p2Start = System.nanoTime();
         runPass2(master);

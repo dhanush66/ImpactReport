@@ -395,6 +395,9 @@ public class IngestCmd implements Callable<Integer> {
                 new io.spmp.impact.extract.resolver.NotificationMacroResolver(),
                 //new io.spmp.impact.extract.resolver.IMgmtListenerResolver(),
                 new io.spmp.impact.extract.resolver.InterfaceResolver(),
+                // Class.forName(...) dispatch -> CALLS edges. Resolves FQNs in afterAll via
+                // the frozen GlobalIndex (see BoundaryResolver.indexFrozen).
+                new io.spmp.impact.extract.resolver.ReflectionResolver(),
                 //new ServletForwardConfigResolver(allSecurityRoots, allXmlConfRoots),
                 // Must be LAST: reads batch.exposes from all XML resolvers above,
                 // expands class-level URL mappings (no method in XML) into per-method

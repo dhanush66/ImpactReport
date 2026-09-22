@@ -25,6 +25,18 @@ public interface BoundaryResolver {
                              List<BodyCollector.CallSite> calls, ExtractionBatch local) {}
 
     /**
+     * Called once between Pass 1 and Pass 2, immediately after {@link GlobalIndex#freeze()}
+     * and before {@link #afterAll}. Resolvers that need to turn an (ownerFqn, methodName,
+     * arity) triple into a real method FQN keep the reference and use it in {@code afterAll}
+     * — the same lookup {@code CallResolver} performs.
+     *
+     * <p>Default is a no-op; the index is deliberately not handed to {@link #visit} or
+     * {@link #visitMethod}, because during Pass 1 it is still being populated and is not
+     * safe to read.
+     */
+    default void indexFrozen(GlobalIndex index) {}
+
+    /**
      * Called once after all CUs have been visited. Used by resolvers that need
      * to emit cross-file edges (e.g., dispatcher method → all known handlers).
      */
