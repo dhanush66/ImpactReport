@@ -252,15 +252,11 @@ public class CoreExtractor {
 
         // ── Pass 3: emit OVERRIDES via the index ─────────────────────
         long p3Start = System.nanoTime();
-        emitOverrides(master, index);
-        long p3Sec = (System.nanoTime() - p3Start) / 1_000_000_000L;
-        System.out.printf("[CoreExtractor] pass 3 (overrides) done: %ds — %d edges%n",
-            p3Sec, master.overrides.size());
-        audit("PASS3", "elapsedSec=" + p3Sec + " overridesEdges=" + master.overrides.size());
+
 
         long runSec = (System.nanoTime() - runStart) / 1_000_000_000L;
-        System.out.printf("[CoreExtractor] total run: %ds (%d classes, %d methods, %d calls, %d overrides)%n",
-            runSec, master.classCount(), master.methodCount(), master.callCount(), master.overrides.size());
+        System.out.printf("[CoreExtractor] total run: %ds (%d classes, %d methods, %d calls%n",
+            runSec, master.classCount(), master.methodCount(), master.callCount());
         audit("RUN_TOTAL", "totalSec=" + runSec
             + " classes=" + master.classCount()
             + " methods=" + master.methodCount()
@@ -698,38 +694,7 @@ public class CoreExtractor {
 
     // ─── Pass 3 ─────────────────────────────────────────────────────────
 
-    /**
-     * Emit :OVERRIDES edges. Uses the {@link GlobalIndex#transitiveAncestors} memoized walker
-     * and same-arity + same-simple-name matching (param-type strings already agree since both
-     * sides use the same import-resolution rules in {@link #buildImportResolvedParamTypes}).
-     */
-    private static void emitOverrides(ExtractionBatch batch, GlobalIndex index) {
-        Map<String, List<MethodNode>> byOwner = new HashMap<>();
-        for (MethodNode m : batch.methods) {
-            byOwner.computeIfAbsent(m.ownerFqn(), k -> new ArrayList<>()).add(m);
-        }
 
-        java.util.Set<String> emitted = new java.util.HashSet<>();
-        for (MethodNode child : batch.methods) {
-            if ("<init>".equals(child.simpleName())) continue;
-            if (child.isStatic()) continue;
-            Set<String> ancestors = index.transitiveAncestors(child.ownerFqn());
-            String[] childSig = sigParts(child);
-            for (String ancestor : ancestors) {
-                List<MethodNode> parentMethods = byOwner.get(ancestor);
-                if (parentMethods == null) continue;
-                for (MethodNode pm : parentMethods) {
-                    if (pm.isStatic()) continue;
-                    if (!signaturesCompatible(childSig, sigParts(pm))) continue;
-                    String key = child.fqn() + "->" + pm.fqn();
-                    if (emitted.add(key)) {
-                        batch.overrides.add(new OverridesEdge(child.fqn(), pm.fqn()));
-                    }
-                }
-            }
-        }
-        System.out.printf("[CoreExtractor] emitted %d :OVERRIDES edges%n", batch.overrides.size());
-    }
 
     private static String[] sigParts(MethodNode m) {
         String fqn = m.fqn();

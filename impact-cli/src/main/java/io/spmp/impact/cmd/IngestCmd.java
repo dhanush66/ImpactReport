@@ -383,7 +383,6 @@ public class IngestCmd implements Callable<Integer> {
                         rootsByRepoId.values().stream().flatMap(List::stream).collect(java.util.stream.Collectors.toList()))),
                 new ThreadStartResolver(),
                 new DbTableResolver(),
-                new io.spmp.impact.extract.resolver.SecurityResolver(),
                 new RestApiXmlResolver(AdspProductApiXmlFromConfig(), ResolverUtils.javaParserFacade(
                         rootsByRepoId.values().stream().flatMap(List::stream).collect(java.util.stream.Collectors.toList()))),
                 new io.spmp.impact.extract.resolver.ServletApiXmlResolver(servletApiXmlFromConfig()),
@@ -396,8 +395,9 @@ public class IngestCmd implements Callable<Integer> {
                 //new io.spmp.impact.extract.resolver.IMgmtListenerResolver(),
                 new io.spmp.impact.extract.resolver.InterfaceResolver(),
                 // Class.forName(...) dispatch -> CALLS edges. Resolves FQNs in afterAll via
-                // the frozen GlobalIndex (see BoundaryResolver.indexFrozen).
-                new io.spmp.impact.extract.resolver.ReflectionResolver(),
+                // the frozen GlobalIndex (see BoundaryResolver.indexFrozen); the XML dir
+                // supplies the CLASS_NAME candidate set for table-backed targets.
+                new io.spmp.impact.extract.resolver.ReflectionResolver(tableXmlDirFromConfig()),
                 //new ServletForwardConfigResolver(allSecurityRoots, allXmlConfRoots),
                 // Must be LAST: reads batch.exposes from all XML resolvers above,
                 // expands class-level URL mappings (no method in XML) into per-method
@@ -726,6 +726,15 @@ public class IngestCmd implements Callable<Integer> {
     // Parsed by ReportsXmlResolver for report_id -> class_name (concrete listener classes).
     private Path reportXmlFromConfig() {
         return pathFromConfig("ReportXML", "reportXmlFromConfig");
+    }
+
+    /**
+     * Directory of table-seed XML (every file there names a table as its row element and the
+     * columns as attributes). ReflectionResolver scans it to map a table to its CLASS_NAME
+     * column, which is the candidate set for {@code Class.forName(row.get("CLASS_NAME"))}.
+     */
+    private Path tableXmlDirFromConfig() {
+        return pathFromConfig("TableXmlDir", "tableXmlDirFromConfig");
     }
 
     // Get the struts-config.xml path from config.properties in the impact-cli working directory.
